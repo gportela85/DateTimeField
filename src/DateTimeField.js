@@ -9,7 +9,7 @@
 Ext.define('Ext.ux.DateTimeField', {
     extend: 'Ext.form.field.Date',
     alias: 'widget.datetimefield',
-    requires: ['Ext.ux.DateTimePicker']
+    requires: ['Ext.ux.DateTimePicker'],
 
 
     fieldLabel: 'Label',
@@ -28,6 +28,7 @@ Ext.define('Ext.ux.DateTimeField', {
      * format.
      */
     altFormats : "m/d/Y H:i:s|c",
+    width: 270,
     mimicBlur: function(e) {
       var me = this,
       picker = me.picker;

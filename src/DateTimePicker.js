@@ -143,8 +143,7 @@
             maxValue: 23,
             vertical: true,
             listeners: {
-                drag : me.changeTimeValue,
-                change: me.changeTimeValue
+                change : me.changeTimeValue
             },
             scope: me
         });
@@ -159,8 +158,7 @@
             maxValue: 59,
             vertical: true,
             listeners: {
-                drag : me.changeTimeValue,
-                change: me.changeTimeValue
+                change : me.changeTimeValue
             },
             scope: me
         });       
