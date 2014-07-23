@@ -105,7 +105,7 @@
         );
 
         Ext.apply(me,{
-            timeFormat: ~me.format.indexOf("H") ? 'H' : 'h',
+            timeFormat: ~me.format.indexOf("h") ? 'h' : 'H',
             changeTimeValue : function (slider, e, eOpts) {
                 var label =  slider.up().down('toolbar').down('label'),
                 hourPrefix = '',
