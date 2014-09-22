@@ -2,16 +2,17 @@
     "name": "DateTimeField",
     "type": "code",
     "creator": "Guilherme Portela",
-    "summary": "DateTime Field for ExtJS 4.2.x",
+    "summary": "DateTime Field for ExtJS 4.2.x and ExtJS 5.0.x",
     "detailedDescription": "Extension of Date Field to add a Time Panel with Sliders to Control Hour and Minute",
-    "version": "1.0.0",
-    "compatVersion": "1.0.0",
+    "version": "1.1.0",
+    "compatVersion": "1.1.0",
     "format": "1",
     "local": true,
     "requires": [],
     "architect": {
         "compatFrameworks": [
-        "ext42"
+        "ext42",
+        "ext50"
         ],
         "classes": [{
             "definition": "DateTimeField.Definition.js",

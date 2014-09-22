@@ -1,11 +1,11 @@
 DateTimeField
 =============
 
-A DateTime Form Field UX for Sencha ExtJS 4.2.x
+A DateTime Form Field UX for Sencha ExtJS 4.2.x and ExtJS 5.0.x
 
 This widget displays a Time Control panel by the Date Picker panel.
 
-There is a DateTimeField.aux file already encapsulated and ready for use with Sencha Architect 3 - ExtJS 4.2
+There is a DateTimeField.aux file already encapsulated and ready for use with Sencha Architect 3.x with ExtJS 4.2.x and 5.0.x
 
 ---
 
