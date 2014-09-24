@@ -1,8 +1,9 @@
 /*
  * File: DateTimePicker.js
  *
- * This file requires use of the Ext JS 4.2.x/5.0.x library, under independent license.
- * For more details see http://www.sencha.com/license or contact license@sencha.com.
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
  *
  * This is part of the UX for DateTimeField developed by Guilherme Portela 
  */
@@ -41,71 +42,72 @@
     initComponent : function() {
         var me = this,
         dtAux = me.value ? new Date(me.value) : new Date();
-
-        if (Ext.getVersion().major <5) {
-          me.renderTpl.unshift(
-            '<div id="{id}-innerEl" role="grid">',
-            '<div role="presentation" class="{baseCls}-header">',
-            // the href attribute is required for the :hover selector to work in IE6/7/quirks
-            '<a id="{id}-prevEl" class="{baseCls}-prev {baseCls}-arrow" href="#" role="button" title="{prevText}" hidefocus="on" ></a>',
-            '<div class="{baseCls}-month" id="{id}-middleBtnEl">{%this.renderMonthBtn(values, out)%}</div>',
-            // the href attribute is required for the :hover selector to work in IE6/7/quirks
-            '<a id="{id}-nextEl" class="{baseCls}-next {baseCls}-arrow" href="#" role="button" title="{nextText}" hidefocus="on" ></a>',
-            '</div>',
-            '<table id="{id}-eventEl" class="{baseCls}-inner" cellspacing="0" role="grid">',
-            '<thead role="presentation"><tr role="row">',
-            '<tpl for="dayNames">',
-            '<th role="columnheader" class="{parent.baseCls}-column-header" title="{.}">',
-            '<div class="{parent.baseCls}-column-header-inner">{.:this.firstInitial}</div>',
-            '</th>',
-            '</tpl>',
-            '</tr></thead>',
-            '<tbody role="presentation"><tr role="row">',
-            '<tpl for="days">',
-            '{#:this.isEndOfWeek}',
-            '<td role="gridcell" id="{[Ext.id()]}">',
-            // the href attribute is required for the :hover selector to work in IE6/7/quirks
-            '<a role="button" hidefocus="on" class="{parent.baseCls}-date" href="#"></a>',
-            '</td>',
-            '</tpl>',
-            '</tr></tbody>',
-            '</table>',
-            '<tpl if="showToday">',
-            '<div id="{id}-footerEl" role="presentation" class="{baseCls}-footer">{%this.renderTodayBtn(values, out)%}</div>',
-            '</tpl>',
-            '</div>');
-        } else {
-          me.renderTpl.unshift(
-            '<div id="{id}-innerEl" data-ref="innerEl">',
-            '<div class="{baseCls}-header">',
-                '<div id="{id}-prevEl" data-ref="prevEl" class="{baseCls}-prev {baseCls}-arrow" role="button" title="{prevText}"></div>',
-                '<div id="{id}-middleBtnEl" data-ref="middleBtnEl" class="{baseCls}-month" role="heading">{%this.renderMonthBtn(values, out)%}</div>',
-                '<div id="{id}-nextEl" data-ref="nextEl" class="{baseCls}-next {baseCls}-arrow" role="button" title="{nextText}"></div>',
-            '</div>',
-            '<table role="grid" id="{id}-eventEl" data-ref="eventEl" class="{baseCls}-inner" {%',
-                // If the DatePicker is focusable, make its eventEl tabbable.
-                'if (values.$comp.focusable) {out.push("tabindex=\\\"0\\\"");}',
-            '%} cellspacing="0">',
-                '<thead><tr role="row">',
-                    '<tpl for="dayNames">',
-                        '<th role="columnheader" class="{parent.baseCls}-column-header" aria-label="{.}">',
-                            '<div role="presentation" class="{parent.baseCls}-column-header-inner">{.:this.firstInitial}</div>',
-                        '</th>',
-                    '</tpl>',
-                '</tr></thead>',
-                '<tbody><tr role="row">',
-                    '<tpl for="days">',
-                        '{#:this.isEndOfWeek}',
-                        '<td role="gridcell" id="{[Ext.id()]}">',
-                            '<div hidefocus="on" class="{parent.baseCls}-date"></div>',
-                        '</td>',
-                    '</tpl>',
-                '</tr></tbody>',
-            '</table>',
-            '<tpl if="showToday">',
-                '<div id="{id}-footerEl" data-ref="footerEl" role="presentation" class="{baseCls}-footer">{%this.renderTodayBtn(values, out)%}</div>',
-            '</tpl>',
-        '</div>');
+        if (me.renderTpl instanceof Array) {
+          if (Ext.getVersion().major <5) {
+            me.renderTpl.unshift(
+              '<div id="{id}-innerEl" role="grid">',
+              '<div role="presentation" class="{baseCls}-header">',
+              // the href attribute is required for the :hover selector to work in IE6/7/quirks
+              '<a id="{id}-prevEl" class="{baseCls}-prev {baseCls}-arrow" href="#" role="button" title="{prevText}" hidefocus="on" ></a>',
+              '<div class="{baseCls}-month" id="{id}-middleBtnEl">{%this.renderMonthBtn(values, out)%}</div>',
+              // the href attribute is required for the :hover selector to work in IE6/7/quirks
+              '<a id="{id}-nextEl" class="{baseCls}-next {baseCls}-arrow" href="#" role="button" title="{nextText}" hidefocus="on" ></a>',
+              '</div>',
+              '<table id="{id}-eventEl" class="{baseCls}-inner" cellspacing="0" role="grid">',
+              '<thead role="presentation"><tr role="row">',
+              '<tpl for="dayNames">',
+              '<th role="columnheader" class="{parent.baseCls}-column-header" title="{.}">',
+              '<div class="{parent.baseCls}-column-header-inner">{.:this.firstInitial}</div>',
+              '</th>',
+              '</tpl>',
+              '</tr></thead>',
+              '<tbody role="presentation"><tr role="row">',
+              '<tpl for="days">',
+              '{#:this.isEndOfWeek}',
+              '<td role="gridcell" id="{[Ext.id()]}">',
+              // the href attribute is required for the :hover selector to work in IE6/7/quirks
+              '<a role="button" hidefocus="on" class="{parent.baseCls}-date" href="#"></a>',
+              '</td>',
+              '</tpl>',
+              '</tr></tbody>',
+              '</table>',
+              '<tpl if="showToday">',
+              '<div id="{id}-footerEl" role="presentation" class="{baseCls}-footer">{%this.renderTodayBtn(values, out)%}</div>',
+              '</tpl>',
+              '</div>');
+          } else {
+            me.renderTpl.unshift(
+              '<div id="{id}-innerEl" data-ref="innerEl">',
+              '<div class="{baseCls}-header">',
+                  '<div id="{id}-prevEl" data-ref="prevEl" class="{baseCls}-prev {baseCls}-arrow" role="button" title="{prevText}"></div>',
+                  '<div id="{id}-middleBtnEl" data-ref="middleBtnEl" class="{baseCls}-month" role="heading">{%this.renderMonthBtn(values, out)%}</div>',
+                  '<div id="{id}-nextEl" data-ref="nextEl" class="{baseCls}-next {baseCls}-arrow" role="button" title="{nextText}"></div>',
+              '</div>',
+              '<table role="grid" id="{id}-eventEl" data-ref="eventEl" class="{baseCls}-inner" {%',
+                  // If the DatePicker is focusable, make its eventEl tabbable.
+                  'if (values.$comp.focusable) {out.push("tabindex=\\\"0\\\"");}',
+              '%} cellspacing="0">',
+                  '<thead><tr role="row">',
+                      '<tpl for="dayNames">',
+                          '<th role="columnheader" class="{parent.baseCls}-column-header" aria-label="{.}">',
+                              '<div role="presentation" class="{parent.baseCls}-column-header-inner">{.:this.firstInitial}</div>',
+                          '</th>',
+                      '</tpl>',
+                  '</tr></thead>',
+                  '<tbody><tr role="row">',
+                      '<tpl for="days">',
+                          '{#:this.isEndOfWeek}',
+                          '<td role="gridcell" id="{[Ext.id()]}">',
+                              '<div hidefocus="on" class="{parent.baseCls}-date"></div>',
+                          '</td>',
+                      '</tpl>',
+                  '</tr></tbody>',
+              '</table>',
+              '<tpl if="showToday">',
+                  '<div id="{id}-footerEl" data-ref="footerEl" role="presentation" class="{baseCls}-footer">{%this.renderTodayBtn(values, out)%}</div>',
+              '</tpl>',
+          '</div>');
+          }
         }
         me.selectedCls = me.baseCls + '-selected';
         me.disabledCellCls = me.baseCls + '-disabled';
@@ -232,10 +234,10 @@
         me.callParent();
     },
     onShow: function () {
+      
         var me = this,
         el = me.el,
         timePicker = me.timePicker;
-
         Ext.defer(function() {
             timePicker.setHeight(el.getHeight());
             timePicker.setPosition(el.getX()+el.getWidth() + 10, el.getY());
@@ -245,12 +247,12 @@
     },
     onHide: function () {
         var me = this;
-
         me.timePicker.hide();
         me.callParent();
     },
     beforeDestroy: function() {
         var me = this;
+
         if (me.rendered) {
             Ext.destroy(
                 me.timePicker,

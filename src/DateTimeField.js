@@ -1,8 +1,9 @@
 /*
  * File: DateTimeField.js
  *
- * This file requires use of the Ext JS 4.2.x/5.0.x library, under independent license.
- * For more details see http://www.sencha.com/license or contact license@sencha.com.
+ * This file requires use of the Ext JS 4.2.x library, under independent license.
+ * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
+ * details see http://www.sencha.com/license or contact license@sencha.com.
  *
  */
  Ext.define('Ext.ux.DateTimeField', {
@@ -10,8 +11,6 @@
   alias: 'widget.datetimefield',
   requires: ['Ext.ux.DateTimePicker'],
 
-
-  fieldLabel: 'Label',
   //<locale>
   /**
    * @cfg {String} format
@@ -52,41 +51,36 @@
         me.collapse();
     } 
   },
-  onExpand: function() {
-    var value = this.getValue();
-    this.picker.setValue(Ext.isDate(value) ? value : new Date());
-  },
   createPicker: function() {
     var me = this,
     format = Ext.String.format;
-
+    
     return new Ext.ux.DateTimePicker({
-      pickerField: me,
-      ownerCt: me.ownerCt,
-      renderTo: document.body,
-      floating: true,
-      hidden: true,
-      focusOnShow: true,
-      minDate: me.minValue,
-      maxDate: me.maxValue,
-      disabledDatesRE: me.disabledDatesRE,
-      disabledDatesText: me.disabledDatesText,
-      disabledDays: me.disabledDays,
-      disabledDaysText: me.disabledDaysText,
-      format: me.format,
-      showToday: me.showToday,
-      startDay: me.startDay,
-      minText: format(me.minText, me.formatDate(me.minValue)),
-      maxText: format(me.maxText, me.formatDate(me.maxValue)),
-      listeners: {
-        scope: me,
-        select: me.onSelect
-      },
-      keyNavConfig: {
-        esc: function() {
-          me.collapse();
-        }
-      }
-    });
+            pickerField: me,
+            floating: true,
+            hidden: true,
+            focusable: false, // Key events are listened from the input field which is never blurred
+            focusOnShow: true,
+            minDate: me.minValue,
+            maxDate: me.maxValue,
+            disabledDatesRE: me.disabledDatesRE,
+            disabledDatesText: me.disabledDatesText,
+            disabledDays: me.disabledDays,
+            disabledDaysText: me.disabledDaysText,
+            format: me.format,
+            showToday: me.showToday,
+            startDay: me.startDay,
+            minText: format(me.minText, me.formatDate(me.minValue)),
+            maxText: format(me.maxText, me.formatDate(me.maxValue)),
+            listeners: {
+                scope: me,
+                select: me.onSelect
+            },
+            keyNavConfig: {
+                esc: function() {
+                    me.collapse();
+                }
+            }
+        });
   }
 });
