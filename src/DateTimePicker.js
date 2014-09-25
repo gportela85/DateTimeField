@@ -156,7 +156,7 @@
 
                 label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSufix);
 
-                if(me.pickerField.getValue()) {
+                if(me.pickerField && me.pickerField.getValue()) {
                     me.pickerField.setValue(new Date(me.pickerField.getValue().setHours(me.hourSlider.getValue(),me.minuteSlider.getValue())))
                 }
             }
@@ -387,7 +387,7 @@
         var me          = this,
             dateOnly    = Ext.Date.clearTime(date, true),
             t           = dateOnly.getTime(),
-            currentDate = me.pickerField.getValue(),
+            currentDate = (me.pickerField && me.pickerField.getValue()) || new Date(),
             cells       = me.cells,
             cls         = me.selectedCls,
             cellItems   = cells.elements,
