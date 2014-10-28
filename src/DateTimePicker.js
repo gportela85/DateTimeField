@@ -250,6 +250,7 @@
             me.timePicker.setHeight(el.getHeight());
             me.timePicker.setPosition(xPos, el.getY());
             me.timePicker.show();
+            me.selectedUpdate(me.value);
         },1);
     },
     runAnimation: function(isHide){
