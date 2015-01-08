@@ -143,18 +143,18 @@
                 var label =  slider.up().down('toolbar').down('label'),
                 hourPrefix = '',
                 minutePrefix = me.minuteSlider.getValue() < 10 ? '0' : ''
-                timeSufix = '',
+                timeSuffix = '',
                 hourDisplay = me.hourSlider.getValue(),
                 auxDate = new Date();
 
                 if (me.timeFormat == 'h') {
-                    timeSufix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
+                    timeSuffix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
                     hourDisplay = me.hourSlider.getValue() < 13 ? hourDisplay : hourDisplay - 12;
                     hourDisplay = hourDisplay || '12';
                 }
                 hourPrefix = hourDisplay < 10 ? '0' : ''
 
-                label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSufix);
+                label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSuffix);
 
                 if(me.pickerField && me.pickerField.getValue()) {
                     me.pickerField.setValue(new Date(me.pickerField.getValue().setHours(me.hourSlider.getValue(),me.minuteSlider.getValue())))
