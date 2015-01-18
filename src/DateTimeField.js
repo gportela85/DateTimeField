@@ -27,26 +27,31 @@
   */
   altFormats : "m/d/Y H:i:s|c",
   width: 270,
+  
   mimicBlur: function(e) {
     var me = this,
     picker = me.picker;
+
     // ignore mousedown events within the picker element
-    if (!picker || !e.within(picker.el, false, true) && !e.within(picker.timePicker.el, false, true) && !me.isEventWithinPickerLoadMask(e)) {
+    if (!picker || !e.within(picker.el, false, true) && !e.within(picker.timePicker.el, false, true)) {
       me.callParent(arguments);
     }
   },
   collapseIf: function(e) {
-    var me = this;
-    if ((Ext.getVersion().major < 5 
+    var me = this,
+    picker = me.picker;
+
+    if ((Ext.getVersion().major == 4
       && !me.isDestroyed 
       && !e.within(me.bodyEl, false, true) 
       && !e.within(me.picker.el, false, true) 
-      && !e.within(me.picker.timePicker.el, false, true) 
-      && !me.isEventWithinPickerLoadMask(e)) ||
-      (Ext.getVersion().major >4
+      && !e.within(me.picker.timePicker.el, false, true)) 
+      || (Ext.getVersion().major == 5
+      && !Ext.fly(e.target).isFocusable()
       && !me.isDestroyed 
       && !e.within(me.bodyEl, false, true) 
       && !me.owns(e.target))
+      && !e.within(picker.timePicker.el, false, true)
       ) {
         me.collapse();
     } 

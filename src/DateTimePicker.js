@@ -55,10 +55,10 @@
       '<tpl else>',
       '<div id="{id}-innerEl" role="grid">',
       '<div role="presentation" class="{baseCls}-header">',
-      // the href attribute is required for the :hover selector to work in IE6/7/quirks
+     // the href attribute is required for the :hover selector to work in IE6/7/quirks
       '<a id="{id}-prevEl" class="{baseCls}-prev {baseCls}-arrow" href="#" role="button" title="{prevText}" hidefocus="on" ></a>',
       '<div class="{baseCls}-month" id="{id}-middleBtnEl">{%this.renderMonthBtn(values, out)%}</div>',
-      // the href attribute is required for the :hover selector to work in IE6/7/quirks
+       // the href attribute is required for the :hover selector to work in IE6/7/quirks
       '<a id="{id}-nextEl" class="{baseCls}-next {baseCls}-arrow" href="#" role="button" title="{nextText}" hidefocus="on" ></a>',
       '</div>',
       '<table id="{id}-eventEl" class="{baseCls}-inner" cellspacing="0" role="grid">',
@@ -143,18 +143,18 @@
                 var label =  slider.up().down('toolbar').down('label'),
                 hourPrefix = '',
                 minutePrefix = me.minuteSlider.getValue() < 10 ? '0' : ''
-                timeSuffix = '',
+                timeSufix = '',
                 hourDisplay = me.hourSlider.getValue(),
                 auxDate = new Date();
 
                 if (me.timeFormat == 'h') {
-                    timeSuffix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
+                    timeSufix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
                     hourDisplay = me.hourSlider.getValue() < 13 ? hourDisplay : hourDisplay - 12;
                     hourDisplay = hourDisplay || '12';
                 }
                 hourPrefix = hourDisplay < 10 ? '0' : ''
 
-                label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSuffix);
+                label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSufix);
 
                 if(me.pickerField && me.pickerField.getValue()) {
                     me.pickerField.setValue(new Date(me.pickerField.getValue().setHours(me.hourSlider.getValue(),me.minuteSlider.getValue())))
@@ -241,7 +241,6 @@
       var me = this,
           el = me.el,
           timePicker = me.timePicker;
-
       Ext.defer(function() {
           var body = Ext.getBody(),
               bodyWidth = body.getViewSize().width,
@@ -250,78 +249,7 @@
             me.timePicker.setHeight(el.getHeight());
             me.timePicker.setPosition(xPos, el.getY());
             me.timePicker.show();
-            me.selectedUpdate(me.value);
         },1);
-    },
-    runAnimation: function(isHide){
-      if(Ext.getVersion().major == 5) {
-        var me = this,
-            picker = this.monthPicker,
-            options = {
-                duration: 200,
-                callback: function() {
-                    picker.setVisible(!isHide);
-                    // See showMonthPicker
-                    picker.ownerCmp = isHide ? null : me;
-                }
-            };
-
-        if (isHide) {
-            picker.el.slideOut('t', options);
-        } else {
-            picker.el.slideIn('t', options);
-        }
-      } else {
-        this.callParent(arguments);
-      }
-    },
-    hideMonthPicker: function(animate){
-      if(Ext.getVersion().major == 5) {
-        var me = this,
-            picker = me.monthPicker;
-
-        if (picker && picker.isVisible()) {
-            if (me.shouldAnimate(animate)) {
-                me.runAnimation(true);
-            } else {
-                picker.hide();
-                // See showMonthPicker
-                picker.ownerCmp = null;
-            }
-        }
-        return me;
-      } else {
-        this.callParent(arguments);
-      }
-    },
-    showMonthPicker: function(animate) {
-      if(Ext.getVersion().major == 5) {
-        var me = this,
-            el = me.el,
-            picker;
-        
-        if (me.rendered && !me.disabled) {
-            picker = me.createMonthPicker();            
-            if (!picker.isVisible()) {
-                picker.setValue(me.getActive());
-                picker.setSize(el.getSize());
-                picker.setPosition(-el.getBorderWidth('l'), -el.getBorderWidth('t'));
-                if (me.shouldAnimate(animate)) {
-                    me.runAnimation(false);
-                } else {
-                    picker.show();
-                    // We need to set the ownerCmp so that owns() can correctly
-                    // match up the component hierarchy, however when positioning the picker
-                    // we don't want it to position like a normal floater because we render it to 
-                    // month picker element itself.
-                    picker.ownerCmp = me;
-                }
-            }
-        }
-        return me;
-      } else {
-        this.callParent(arguments);
-      }
     },
     onHide: function () {
         var me = this;
