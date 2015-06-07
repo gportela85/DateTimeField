@@ -1,10 +1,8 @@
 /*
  * File: DateTimeField.js
  *
- * This file requires use of the Ext JS 4.2.x library, under independent license.
- * License of Sencha Architect does not include license for Ext JS 4.2.x. For more
- * details see http://www.sencha.com/license or contact license@sencha.com.
- *
+ * This file requires use of the Ext JS library, under independent license.
+ * This is part of the UX for DateTimeField developed by Guilherme Portela
  */
 Ext.define('Ext.ux.DateTimeField', {
     extend: 'Ext.form.field.Date',
