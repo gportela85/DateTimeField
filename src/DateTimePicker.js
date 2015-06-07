@@ -171,6 +171,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             fieldLabel: 'Hour',
             labelAlign: 'top',
             labelSeparator: ' ',
+            padding : '0 0 10 17',
             value: 0,
             minValue: 0,
             maxValue: 23,
@@ -185,6 +186,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             fieldLabel: 'Minutes',
             labelAlign: 'top',
             labelSeparator: ' ',
+            padding: '0 10 10 0',
             value: 0,
             increment: 1,
             minValue: 0,
@@ -208,8 +210,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             },
             border: false,
             defaults: {
-                flex: 1,
-                margin: 10
+                flex: 1
             },
             width: 130,
             floating: true,
@@ -243,12 +244,12 @@ Ext.define('Ext.ux.DateTimePicker', {
         Ext.defer(function() {
             var body = Ext.getBody(),
                 bodyWidth = body.getViewSize().width,
-                offSet = el.getWidth() / 2 + 70,
-                xPos = (bodyWidth < (el.getX() + el.getWidth() + 140)) ? -offSet : offSet,
+                alignTo = (bodyWidth < (el.getX() + el.getWidth() + 140)) ? 'tl' : 'tr',
+                xPos = alignTo == 'tl' ? -135 : 5,
                 backgroundColor, toolbar;
 
             me.timePicker.setHeight(el.getHeight());
-            me.timePicker.showBy(me, null, [xPos, 0]);
+            me.timePicker.showBy(me, alignTo, [xPos, 0]);
 
             toolbar = me.timePicker.down('toolbar').getEl();
             backgroundColor = toolbar.getStyle('background-color');
