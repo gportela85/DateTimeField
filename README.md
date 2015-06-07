@@ -1,11 +1,11 @@
 DateTimeField
 =============
 
-A DateTime Form Field UX for Sencha ExtJS 4.2.2 and ExtJS 5.x
+A DateTime Form Field UX for Sencha ExtJS 4.2.x, ExtJS 5.x and ExtJS 6.x
 
-This widget displays a Time Control panel by the Date Picker panel.
+This widget displays a Time Picker panel by the Date Picker panel.
 
-There is a DateTimeField.aux file already encapsulated and ready for use with Sencha Architect 3.x with ExtJS 4.2.x and 5.0.x
+There is a DateTimeField.aux file already encapsulated and ready for use with Sencha Architect 3.x.
 
 ---
 
@@ -19,7 +19,7 @@ Eg: 'm/d/Y H:i:s' or 'm/d/Y h:i A'
 
 Known Bugs: 
 
-- Does not work with ExtJS 4.2.3 (Datepicker closes by itself when expanded).
+- Min Value and Max Value does not prevent incorrect time selection
 
 ---
 

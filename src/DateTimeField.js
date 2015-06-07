@@ -6,61 +6,60 @@
  * details see http://www.sencha.com/license or contact license@sencha.com.
  *
  */
- Ext.define('Ext.ux.DateTimeField', {
-  extend: 'Ext.form.field.Date',
-  alias: 'widget.datetimefield',
-  requires: ['Ext.ux.DateTimePicker'],
+Ext.define('Ext.ux.DateTimeField', {
+    extend: 'Ext.form.field.Date',
+    alias: 'widget.datetimefield',
+    requires: ['Ext.ux.DateTimePicker'],
 
-  //<locale>
-  /**
-   * @cfg {String} format
-   * The default date format string which can be overriden for localization support. The format must be valid
-   * according to {@link Ext.Date#parse}.
-  */
-  format : "m/d/Y H:i",
-  //</locale>
-  //<locale>
-  /**
-   * @cfg {String} altFormats
-   * Multiple date formats separated by "|" to try when parsing a user input value and it does not match the defined
-   * format.
-  */
-  altFormats : "m/d/Y H:i:s|c",
-  width: 270,
-  
-  mimicBlur: function(e) {
-    var me = this,
-    picker = me.picker;
+    //<locale>
+    /**
+     * @cfg {String} format
+     * The default date format string which can be overriden for localization support. The format must be valid
+     * according to {@link Ext.Date#parse}.
+     */
+    format: "m/d/Y H:i",
+    //</locale>
+    //<locale>
+    /**
+     * @cfg {String} altFormats
+     * Multiple date formats separated by "|" to try when parsing a user input value and it does not match the defined
+     * format.
+     */
+    altFormats: "m/d/Y H:i:s|c",
+    width: 270,
 
-    // ignore mousedown events within the picker element
-    if (!picker || !e.within(picker.el, false, true) && !e.within(picker.timePicker.el, false, true)) {
-      me.callParent(arguments);
-    }
-  },
-  collapseIf: function(e) {
-    var me = this,
-    picker = me.picker;
+    mimicBlur: function(e) {
+        var me = this,
+            picker = me.picker;
 
-    if ((Ext.getVersion().major == 4
-      && !me.isDestroyed 
-      && !e.within(me.bodyEl, false, true) 
-      && !e.within(me.picker.el, false, true) 
-      && !e.within(me.picker.timePicker.el, false, true)) 
-      || (Ext.getVersion().major == 5
-      && !Ext.fly(e.target).isFocusable()
-      && !me.isDestroyed 
-      && !e.within(me.bodyEl, false, true) 
-      && !me.owns(e.target))
-      && !e.within(picker.timePicker.el, false, true)
-      ) {
-        me.collapse();
-    } 
-  },
-  createPicker: function() {
-    var me = this,
-    format = Ext.String.format;
-    
-    return new Ext.ux.DateTimePicker({
+        // ignore mousedown events within the picker element
+        if (!picker || !e.within(picker.el, false, true) && !e.within(picker.timePicker.el, false, true)) {
+            me.callParent(arguments);
+        }
+    },
+    triggerBlur: function() {
+        return false;
+    },
+    collapseIf: function(e) {
+        var me = this,
+            picker = me.picker;
+
+        if ((Ext.getVersion().major == 4 && !me.isDestroyed && 
+          !e.within(me.bodyEl, false, true) && !e.within(me.picker.el, false, true) && 
+          !e.within(me.picker.timePicker.el, false, true)) || 
+          (Ext.getVersion().major == 5 && 
+          !Ext.fly(e.target).isFocusable() && 
+          !me.isDestroyed && 
+          !e.within(me.bodyEl, false, true) && !me.owns(e.target)) 
+          && !e.within(picker.timePicker.el, false, true)) {
+            me.collapse();
+        }
+    },
+    createPicker: function() {
+        var me = this,
+            format = Ext.String.format;
+
+        return new Ext.ux.DateTimePicker({
             pickerField: me,
             floating: true,
             hidden: true,
@@ -87,5 +86,5 @@
                 }
             }
         });
-  }
+    }
 });
