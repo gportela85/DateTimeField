@@ -9,21 +9,28 @@ Ext.define('Ext.ux.DateTimeField', {
     alias: 'widget.datetimefield',
     requires: ['Ext.ux.DateTimePicker'],
 
-    //<locale>
-    /**
-     * @cfg {String} format
-     * The default date format string which can be overriden for localization support. The format must be valid
-     * according to {@link Ext.Date#parse}.
-     */
-    format: "m/d/Y H:i",
-    //</locale>
-    //<locale>
-    /**
-     * @cfg {String} altFormats
-     * Multiple date formats separated by "|" to try when parsing a user input value and it does not match the defined
-     * format.
-     */
-    altFormats: "m/d/Y H:i:s|c",
+    // localization example
+    // TODO : check browsers and ExtJS versions compatibility
+    config: Object.defineProperties({
+        timeFormat: "H:i",
+        timeFormatSec: "H:i:s"
+    }, {
+        // inherit Ext.form.field.Date.format localization
+        format: {
+            get: function () {
+                return Ext.form.field.Date.prototype.format + " " + this.timeFormat;
+            },
+            configurable: true, enumerable: true
+        },
+        // inherit Ext.form.field.Date.altFormats localization
+        altFormats: {
+            get: function () {
+                return Ext.form.field.Date.prototype.altFormats + " " + this.timeFormatSec + "|" + "c";
+            },
+            configurable: true, enumerable: true
+        }
+    }),
+
     width: 270,
 
     mimicBlur: function(e) {
