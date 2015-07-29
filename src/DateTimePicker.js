@@ -14,7 +14,6 @@ Ext.define('Ext.ux.DateTimePicker', {
         'Ext.form.field.Time',
         'Ext.form.Label'
     ],
-    todayText: 'Current Date',
     initComponent: function() {
         var me = this,
             dtAux = me.value ? new Date(me.value) : new Date();
