@@ -15,6 +15,46 @@ Ext.define('Ext.ux.DateTimePicker', {
         'Ext.form.Label'
     ],
     todayText: 'Current Date',
+    initEvents: function() {
+        var me = this,
+            eDate = Ext.Date,
+            day = eDate.DAY;
+
+        Ext.apply(me.keyNavConfig,{
+            up: function(e) {
+                if (e.ctrlKey) {
+                    if (e.shiftKey) {
+                        me.minuteSlider.setValue(me.minuteSlider.getValue()+1);
+                    } else {
+                        me.showNextYear();
+                    }
+                } else {
+                    if (e.shiftKey) {
+                        me.hourSlider.setValue(me.hourSlider.getValue()+1);
+                    } else {
+                        me.update(eDate.add(me.activeDate, day, -7));
+                    }
+                }
+            },
+
+            down: function(e) {
+                if (e.ctrlKey) {
+                    if (e.shiftKey) {
+                        me.minuteSlider.setValue(me.minuteSlider.getValue()-1);
+                    } else {
+                        me.showPrevYear();
+                    }
+                } else {
+                    if (e.shiftKey) {
+                        me.hourSlider.setValue(me.hourSlider.getValue()-1);
+                    } else {
+                        me.update(eDate.add(me.activeDate, day, 7));
+                    }
+                }
+            }
+        });
+        me.callParent();
+    },
     initComponent: function() {
         var me = this,
             dtAux = me.value ? new Date(me.value) : new Date();
@@ -93,6 +133,28 @@ Ext.define('Ext.ux.DateTimePicker', {
         });
 
         me.callParent();
+    },
+    handleTabClick: function (e) {
+        this.handleDateClick(e, this.activeCell.firstChild, true);
+    },
+    getSelectedDate: function (date) {
+        var me = this,
+            t = Ext.Date.clearTime(date,true).getTime(),
+            cells = me.cells,
+            cls = me.selectedCls,
+            cellItems = cells.elements,
+            cLen = cellItems.length,
+            cell, c;
+
+        cells.removeCls(cls);
+
+        for (c = 0; c < cLen; c++) {
+            cell = cellItems[c].firstChild;
+            if (cell.dateValue === t) {
+                return cell;
+            }
+        }
+        return null;
     },
     changeTimeValue: function(slider, e, eOpts) {
         var me = this,
@@ -180,13 +242,15 @@ Ext.define('Ext.ux.DateTimePicker', {
         }
         return me;
     },
-    handleDateClick: function(e, t) {
+    handleDateClick: function(e, t, /*private*/ blockStopEvent) {
         var me = this,
             handler = me.handler,
             hourSet = me.timePicker.items.items[0].getValue(),
             minuteSet = me.timePicker.items.items[1].getValue(),
             auxDate = new Date(t.dateValue);
-        e.stopEvent();
+        if(blockStopEvent !== true) {
+            e.stopEvent();
+        }
         if (!me.disabled && t.dateValue && !Ext.fly(t.parentNode).hasCls(me.disabledCellCls)) {
             me.doCancelFocus = me.focusOnSelect === false;
             auxDate.setHours(hourSet, minuteSet, 0);

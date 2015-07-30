@@ -50,32 +50,16 @@ Ext.define('Ext.ux.DateTimeField', {
         var me = this,
             format = Ext.String.format;
 
-        return new Ext.ux.DateTimePicker({
-            pickerField: me,
-            floating: true,
-            hidden: true,
-            focusable: false, // Key events are listened from the input field which is never blurred
-            focusOnShow: true,
-            minDate: me.minValue,
-            maxDate: me.maxValue,
-            disabledDatesRE: me.disabledDatesRE,
-            disabledDatesText: me.disabledDatesText,
-            disabledDays: me.disabledDays,
-            disabledDaysText: me.disabledDaysText,
-            format: me.format,
-            showToday: me.showToday,
-            startDay: me.startDay,
-            minText: format(me.minText, me.formatDate(me.minValue)),
-            maxText: format(me.maxText, me.formatDate(me.maxValue)),
-            listeners: {
-                scope: me,
-                select: me.onSelect
-            },
-            keyNavConfig: {
-                esc: function() {
-                    me.collapse();
-                }
-            }
-        });
+        return new Ext.ux.DateTimePicker(this.callParent().config);
+    },
+    getRefItems: function() {
+        var me = this,
+            result = me.callParent();
+
+        if (me.picker.timePicker){
+            result.push(me.picker.timePicker);
+        }
+        
+        return result;
     }
 });
