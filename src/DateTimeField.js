@@ -42,15 +42,8 @@ Ext.define('Ext.ux.DateTimeField', {
         var me = this,
             picker = me.picker;
 
-        if ((Ext.getVersion().major == 4 && !me.isDestroyed && 
-          !e.within(me.bodyEl, false, true) && !e.within(me.picker.el, false, true) && 
-          !e.within(me.picker.timePicker.el, false, true)) || 
-          (Ext.getVersion().major == 5 && 
-          !Ext.fly(e.target).isFocusable() && 
-          !me.isDestroyed && 
-          !e.within(me.bodyEl, false, true) && !me.owns(e.target)) 
-          && !e.within(picker.timePicker.el, false, true)) {
-            me.collapse();
+        if (!e.within(picker.timePicker.el,false,true)) {
+            me.callParent([e]);
         }
     },
     createPicker: function() {

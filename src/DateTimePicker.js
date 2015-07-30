@@ -19,39 +19,14 @@ Ext.define('Ext.ux.DateTimePicker', {
         var me = this,
             dtAux = me.value ? new Date(me.value) : new Date();
 
-        me.selectedCls = me.baseCls + '-selected';
-        me.disabledCellCls = me.baseCls + '-disabled';
-        me.prevCls = me.baseCls + '-prevday';
-        me.activeCls = me.baseCls + '-active';
-        me.cellCls = me.baseCls + '-cell';
-        me.nextCls = me.baseCls + '-prevday';
-        me.todayCls = me.baseCls + '-today';
-        dtAux.setSeconds(0);
+        me.timeFormat = ~me.format.indexOf("h") ? 'h' : 'H';
 
-        if (!me.format) {
-            me.format = Ext.Date.defaultFormat;
-        }
-        if (!me.dayNames) {
-            me.dayNames = Ext.Date.dayNames;
-        }
-        me.dayNames = me.dayNames.slice(me.startDay).concat(me.dayNames.slice(0, me.startDay));
-
-        me.callParent();
-
-        me.value = new Date(dtAux);
-
-        Ext.apply(me, {
-            timeFormat: ~me.format.indexOf("h") ? 'h' : 'H',
-
-        });
-
-        me.initDisabledDays();
         me.hourSlider = new Ext.slider.Single({
-            xtype: 'slider',
             fieldLabel: 'Hour',
             labelAlign: 'top',
             labelSeparator: ' ',
             padding: '0 0 10 17',
+            focusable : false,
             value: 0,
             minValue: 0,
             maxValue: 23,
@@ -67,6 +42,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             labelAlign: 'top',
             labelSeparator: ' ',
             padding: '0 10 10 0',
+            focusable : false,
             value: 0,
             increment: 1,
             minValue: 0,
@@ -77,6 +53,11 @@ Ext.define('Ext.ux.DateTimePicker', {
                 scope: me
             }
         });
+
+        me.callParent();
+
+        dtAux.setSeconds(0);
+        me.setValue(new Date(dtAux));
     },
     afterRender: function() {
         var me = this,
@@ -93,7 +74,9 @@ Ext.define('Ext.ux.DateTimePicker', {
             },
             width: 130,
             floating: true,
-
+            onMouseDown: function(e) {
+                e.preventDefault();
+            },
             dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
