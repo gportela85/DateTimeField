@@ -59,8 +59,9 @@ Ext.define('Ext.ux.DateTimePicker', {
         var me = this,
             dtAux = me.value ? new Date(me.value) : new Date();
 
+        dtAux.setSeconds(0);
+        
         me.timeFormat = ~me.format.indexOf("h") ? 'h' : 'H';
-
         me.hourSlider = new Ext.slider.Single({
             fieldLabel: 'Hour',
             labelAlign: 'top',
@@ -93,10 +94,8 @@ Ext.define('Ext.ux.DateTimePicker', {
                 scope: me
             }
         });
-
+        
         me.callParent();
-
-        dtAux.setSeconds(0);
         me.setValue(new Date(dtAux));
     },
     afterRender: function() {
