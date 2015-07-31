@@ -272,8 +272,8 @@ Ext.define('Ext.ux.DateTimePicker', {
 
         if (currentDate) {
             Ext.defer(function() {
-                me.timePicker.items.items[0].setValue(currentDate.getHours());
-                me.timePicker.items.items[1].setValue(currentDate.getMinutes());
+                me.hourSlider.setValue(currentDate.getHours());
+                me.minuteSlider.setValue(currentDate.getMinutes());
             }, 10);
 
         }
@@ -288,8 +288,8 @@ Ext.define('Ext.ux.DateTimePicker', {
 
         if (currentDate) {
             Ext.defer(function() {
-                me.timePicker.items.items[0].setValue(currentDate.getHours());
-                me.timePicker.items.items[1].setValue(currentDate.getMinutes());
+                me.hourSlider.setValue(currentDate.getHours());
+                me.minuteSlider.setValue(currentDate.getMinutes());
             }, 10);
 
         }
