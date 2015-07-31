@@ -14,7 +14,11 @@ Ext.define('Ext.ux.DateTimePicker', {
         'Ext.form.field.Time',
         'Ext.form.Label'
     ],
+    
     todayText: 'Current Date',
+    hourText: 'Hour',
+    minuteText : 'Minutes',
+
     initEvents: function() {
         var me = this,
             eDate = Ext.Date,
@@ -63,7 +67,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         
         me.timeFormat = ~me.format.indexOf("h") ? 'h' : 'H';
         me.hourSlider = new Ext.slider.Single({
-            fieldLabel: 'Hour',
+            fieldLabel: me.hourText,
             labelAlign: 'top',
             labelSeparator: ' ',
             padding: '0 0 10 17',
@@ -79,7 +83,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         });
 
         me.minuteSlider = new Ext.slider.Single({
-            fieldLabel: 'Minutes',
+            fieldLabel: me.minuteText,
             labelAlign: 'top',
             labelSeparator: ' ',
             padding: '0 10 10 0',
@@ -247,9 +251,11 @@ Ext.define('Ext.ux.DateTimePicker', {
             hourSet = me.timePicker.items.items[0].getValue(),
             minuteSet = me.timePicker.items.items[1].getValue(),
             auxDate = new Date(t.dateValue);
+
         if(blockStopEvent !== true) {
             e.stopEvent();
         }
+
         if (!me.disabled && t.dateValue && !Ext.fly(t.parentNode).hasCls(me.disabledCellCls)) {
             me.doCancelFocus = me.focusOnSelect === false;
             auxDate.setHours(hourSet, minuteSet, 0);
