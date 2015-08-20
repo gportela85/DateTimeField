@@ -45,13 +45,13 @@ ScreenShots - Neptune Theme
 
 ScreenShots - Crisp Theme (ExtJS 5)
 
-[![neptune12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_crisp_12.png)]()
+[![neptune12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Crisp_12.png)]()
 
-[![neptune24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_crisp_24.png)]()
+[![neptune24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Crisp_24.png)]()
 
 ScreenShots - Triton Theme (ExtJS 6)
 
-[![triton12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_triton_12.png)]()
+[![triton12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Triton_12.png)]()
 
-[![triton24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_triton_24.png)]()
+[![triton24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Triton_24.png)]()
 
