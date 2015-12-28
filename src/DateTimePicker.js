@@ -28,15 +28,15 @@ Ext.define('Ext.ux.DateTimePicker', {
             up: function(e) {
                 if (e.ctrlKey) {
                     if (e.shiftKey) {
-                        me.minuteSlider.setValue(me.minuteSlider.getValue()+1);
+                        me.minuteSlider.setValue(me.minuteSlider.getValue() + 1);
                     } else {
                         me.showNextYear();
                     }
                 } else {
                     if (e.shiftKey) {
-                        me.hourSlider.setValue(me.hourSlider.getValue()+1);
+                        me.hourSlider.setValue(me.hourSlider.getValue() + 1);
                     } else {
-                        me.update(eDate.add(me.activeDate, day, -7));
+                        me.update(eDate.add(me.activeDate, day, - 7));
                     }
                 }
             },
@@ -44,13 +44,13 @@ Ext.define('Ext.ux.DateTimePicker', {
             down: function(e) {
                 if (e.ctrlKey) {
                     if (e.shiftKey) {
-                        me.minuteSlider.setValue(me.minuteSlider.getValue()-1);
+                        me.minuteSlider.setValue(me.minuteSlider.getValue() - 1);
                     } else {
                         me.showPrevYear();
                     }
                 } else {
                     if (e.shiftKey) {
-                        me.hourSlider.setValue(me.hourSlider.getValue()-1);
+                        me.hourSlider.setValue(me.hourSlider.getValue() - 1);
                     } else {
                         me.update(eDate.add(me.activeDate, day, 7));
                     }
@@ -59,6 +59,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         });
         me.callParent();
     },
+
     initComponent: function() {
         var me = this,
             dtAux = me.value ? new Date(me.value) : new Date();
@@ -102,9 +103,9 @@ Ext.define('Ext.ux.DateTimePicker', {
         me.callParent();
         me.setValue(new Date(dtAux));
     },
+
     afterRender: function() {
-        var me = this,
-            el = me.el;
+        var me = this;
 
         me.timePicker = Ext.create('Ext.panel.Panel', {
             layout: {
@@ -117,9 +118,6 @@ Ext.define('Ext.ux.DateTimePicker', {
             },
             width: 130,
             floating: true,
-            onMouseDown: function(e) {
-                e.preventDefault();
-            },
             dockedItems: [{
                 xtype: 'toolbar',
                 dock: 'top',
@@ -132,14 +130,19 @@ Ext.define('Ext.ux.DateTimePicker', {
                     '->'
                 ]
             }],
-            items: [me.hourSlider, me.minuteSlider]
+            items: [me.hourSlider, me.minuteSlider],
+            onMouseDown: function(e) {
+                e.preventDefault();
+            },
         });
 
         me.callParent();
     },
+
     handleTabClick: function (e) {
         this.handleDateClick(e, this.activeCell.firstChild, true);
     },
+
     getSelectedDate: function (date) {
         var me = this,
             t = Ext.Date.clearTime(date,true).getTime(),
@@ -159,37 +162,43 @@ Ext.define('Ext.ux.DateTimePicker', {
         }
         return null;
     },
+
     changeTimeValue: function(slider, e, eOpts) {
         var me = this,
             label = me.timePicker.down('label'),
-            hourPrefix = '',
             minutePrefix = me.minuteSlider.getValue() < 10 ? '0' : '',
-            timeSufix = '',
             hourDisplay = me.hourSlider.getValue(),
-            auxDate = new Date();
+            pickerValue, hourValue, minuteValue, hourPrefix, timeSufix, auxValue;
 
         if (me.timeFormat == 'h') {
             timeSufix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
             hourDisplay = me.hourSlider.getValue() < 13 ? hourDisplay : hourDisplay - 12;
             hourDisplay = hourDisplay || '12';
         }
+
         hourPrefix = hourDisplay < 10 ? '0' : '';
 
         label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSufix);
 
-        if (me.pickerField && me.pickerField.getValue()) {
-            me.pickerField.setValue(new Date(me.pickerField.getValue().setHours(me.hourSlider.getValue(), me.minuteSlider.getValue())));
+        if (me.pickerField && (pickerValue = me.pickerField.getValue())) {
+            hourValue = me.hourSlider.getValue();
+            minuteValue = me.minuteSlider.getValue();
+            auxValue = new Date(pickerValue.setHours(hourValue, minuteValue));
+
+            me.pickerField.setValue(auxValue);
         }
     },
+
     onShow: function() {
         var me = this;
         me.showTimePicker();
         me.callParent();
     },
+
     showTimePicker: function() {
         var me = this,
-            el = me.el,
-            timePicker = me.timePicker;
+            el = me.el;
+
         Ext.defer(function() {
             var body = Ext.getBody(),
                 bodyWidth = body.getViewSize().width,
@@ -207,11 +216,13 @@ Ext.define('Ext.ux.DateTimePicker', {
             }
         }, 1);
     },
+
     onHide: function() {
         var me = this;
         me.timePicker.hide();
         me.callParent();
     },
+
     beforeDestroy: function() {
         var me = this;
 
@@ -224,16 +235,18 @@ Ext.define('Ext.ux.DateTimePicker', {
         }
         me.callParent();
     },
+
     setValue: function(value) {
         value.setSeconds(0);
         this.value = new Date(value);
         return this.update(this.value);
     },
+
     selectToday: function() {
         var me = this,
             btn = me.todayBtn,
-            handler = me.handler
-        auxDate = new Date;
+            handler = me.handler,
+            auxDate = new Date();
 
         if (btn && !btn.disabled) {
             me.setValue(new Date(auxDate.setSeconds(0)));
@@ -245,6 +258,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         }
         return me;
     },
+
     handleDateClick: function(e, t, /*private*/ blockStopEvent) {
         var me = this,
             handler = me.handler,
@@ -265,10 +279,10 @@ Ext.define('Ext.ux.DateTimePicker', {
             if (handler) {
                 handler.call(me.scope || me, me, me.value);
             }
-
             me.onSelect();
         }
     },
+
     selectedUpdate: function(date) {
         var me = this,
             dateOnly = Ext.Date.clearTime(date, true),
@@ -283,8 +297,8 @@ Ext.define('Ext.ux.DateTimePicker', {
             }, 10);
 
         }
-
     },
+
     fullUpdate: function(date) {
         var me = this,
             dateOnly = Ext.Date.clearTime(date, true),
@@ -297,8 +311,6 @@ Ext.define('Ext.ux.DateTimePicker', {
                 me.hourSlider.setValue(currentDate.getHours());
                 me.minuteSlider.setValue(currentDate.getMinutes());
             }, 10);
-
         }
-
     }
 });

@@ -52,11 +52,11 @@ Ext.define('Ext.ux.DateTimeField', {
     createPicker: function() {
         var parentPicker = this.callParent(),
             o = {};
-            for(var key in parentPicker) {
-                if (parentPicker.hasOwnProperty(key) && parentPicker[key]){
-                    o[key] = parentPicker[key];
-                }
+        for(var key in parentPicker) {
+            if (parentPicker.hasOwnProperty(key) && parentPicker[key]){
+                o[key] = parentPicker[key];
             }
+        }
         return new Ext.ux.DateTimePicker(o);
     },
 
