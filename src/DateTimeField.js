@@ -69,6 +69,62 @@ Ext.define('Ext.ux.DateTimeField', {
         return Ext.create('Ext.ux.DateTimePicker', o);
     },
 
+    getErrors: function(value) {
+        value = arguments.length > 0 ? value : this.formatDate(this.processRawValue(this.getRawValue()));
+
+        var me = this,
+            format = Ext.String.format,
+            errors = me.superclass.superclass.getErrors.apply(this, arguments),
+            disabledDays = me.disabledDays,
+            disabledDatesRE = me.disabledDatesRE,
+            minValue = me.minValue,
+            maxValue = me.maxValue,
+            len = disabledDays ? disabledDays.length : 0,
+            i = 0,
+            svalue,
+            fvalue,
+            day,
+            time;
+
+        if (value === null || value.length < 1) { // if it's blank and textfield didn't flag it then it's valid
+             return errors;
+        }
+
+        svalue = value;
+        value = me.parseDate(value);
+        if (!value) {
+            errors.push(format(me.invalidText, svalue, Ext.Date.unescapeFormat(me.format)));
+            return errors;
+        }
+
+        time = value.getTime();
+        if (minValue && time < minValue.getTime()) {
+            errors.push(format(me.minText, me.formatDate(minValue)));
+        }
+
+        if (maxValue && time > maxValue.getTime()) {
+            errors.push(format(me.maxText, me.formatDate(maxValue)));
+        }
+
+        if (disabledDays) {
+            day = value.getDay();
+
+            for(; i < len; i++) {
+                if (day === disabledDays[i]) {
+                    errors.push(me.disabledDaysText);
+                    break;
+                }
+            }
+        }
+
+        fvalue = me.formatDate(value);
+        if (disabledDatesRE && disabledDatesRE.test(fvalue)) {
+            errors.push(format(me.disabledDatesText, fvalue));
+        }
+
+        return errors;
+    },
+
     getRefItems: function() {
         var me = this,
             result = me.callParent();
