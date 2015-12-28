@@ -178,7 +178,7 @@ Ext.define('Ext.ux.DateTimePicker', {
 
         hourPrefix = hourDisplay < 10 ? '0' : '';
 
-        label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + timeSufix);
+        label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + (timeSufix || ''));
 
         if (me.pickerField && (pickerValue = me.pickerField.getValue())) {
             hourValue = me.hourSlider.getValue();

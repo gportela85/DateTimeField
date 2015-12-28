@@ -50,14 +50,23 @@ Ext.define('Ext.ux.DateTimeField', {
     },
 
     createPicker: function() {
-        var parentPicker = this.callParent(),
-            o = {};
-        for(var key in parentPicker) {
+        var me = this,
+            parentPicker = this.callParent(),
+            o = {}, key;
+
+        for(key in parentPicker) {
             if (parentPicker.hasOwnProperty(key) && parentPicker[key]){
                 o[key] = parentPicker[key];
             }
         }
-        return new Ext.ux.DateTimePicker(o);
+        
+        for (key in me.initialConfig) {
+            if (me.initialConfig.hasOwnProperty(key) && me.initialConfig[key]) {
+                o.initialConfig[key] = me.initialConfig[key];
+            }
+        }
+        
+        return Ext.create('Ext.ux.DateTimePicker', o);
     },
 
     getRefItems: function() {
