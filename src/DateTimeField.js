@@ -35,9 +35,11 @@ Ext.define('Ext.ux.DateTimeField', {
             me.callParent(arguments);
         }
     },
+
     triggerBlur: function() {
         return false;
     },
+
     collapseIf: function(e) {
         var me = this,
             picker = me.picker;
@@ -46,23 +48,23 @@ Ext.define('Ext.ux.DateTimeField', {
             me.callParent([e]);
         }
     },
+
     createPicker: function() {
-        var me = this,
-            format = Ext.String.format,
-            parentPicker = this.callParent(),
+        var parentPicker = this.callParent(),
             o = {};
             for(var key in parentPicker) {
                 if (parentPicker.hasOwnProperty(key) && parentPicker[key]){
-                    o[key] = parentPicker[key]
+                    o[key] = parentPicker[key];
                 }
             }
         return new Ext.ux.DateTimePicker(o);
     },
+
     getRefItems: function() {
         var me = this,
             result = me.callParent();
 
-        if (me.picker.timePicker){
+        if (me.picker && me.picker.timePicker){
             result.push(me.picker.timePicker);
         }
         
