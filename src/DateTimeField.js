@@ -44,16 +44,21 @@ Ext.define('Ext.ux.DateTimeField', {
         var me = this,
             picker = me.picker;
 
-        if (picker.timePicker && !e.within(picker.timePicker.el,false,true)) {
+        if (picker.timePicker && !e.within(picker.timePicker.el, false, true)) {
             me.callParent([e]);
         }
     },
 
     createPicker: function() {
         var me = this,
-            parentPicker = this.callParent();
+            parentPicker = this.callParent(),
+            config = Ext.merge(me.initialConfig, parentPicker.initialConfig);
+
+            if (config.renderTo) {
+                delete config.renderTo;
+            }
         
-        return Ext.create('Ext.ux.DateTimePicker', Ext.merge(me.initialConfig, parentPicker.initialConfig));
+        return Ext.create('Ext.ux.DateTimePicker', config);
     },
 
     getErrors: function(value) {
