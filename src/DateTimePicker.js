@@ -79,7 +79,15 @@ Ext.define('Ext.ux.DateTimePicker', {
 
     initComponent: function() {
         var me = this,
-            dtAux = me.value ? new Date(me.value) : new Date();
+            dtAux;
+
+        if (typeof me.value === 'string') {
+            me.value = Ext.Date.parse(me.value, me.format);
+        } else if (!me.value) {
+            me.value = new Date();
+        }
+
+        dtAux = me.value;
 
         dtAux.setSeconds(0);
         
