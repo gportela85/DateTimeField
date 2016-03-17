@@ -102,6 +102,15 @@ Ext.define('Ext.ux.DateTimePicker', {
             minValue: 0,
             maxValue: 23,
             vertical: true,
+            tipText: function(thumb){
+                var value = thumb.value;
+
+                if (me.timeFormat === 'H') {
+                    return value;
+                } else {
+                    return (value && value - 12 <= 0) ? value : Math.abs(value - 12);
+                }
+            },
             listeners: {
                 change: me.changeTimeValue,
                 scope: me
