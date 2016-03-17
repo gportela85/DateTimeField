@@ -106,7 +106,7 @@ Ext.define('Ext.ux.DateTimePicker', {
                 var value = thumb.value;
 
                 if (me.timeFormat === 'H') {
-                    return value;
+                    return value || '0';
                 } else {
                     return (value && value - 12 <= 0) ? value : Math.abs(value - 12);
                 }
