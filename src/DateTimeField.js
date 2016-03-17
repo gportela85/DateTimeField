@@ -115,16 +115,5 @@ Ext.define('Ext.ux.DateTimeField', {
         }
 
         return errors;
-    },
-
-    getRefItems: function() {
-        var me = this,
-            result = me.callParent();
-
-        if (me.picker && me.picker.timePicker){
-            result.push(me.picker.timePicker);
-        }
-        
-        return result;
     }
 });

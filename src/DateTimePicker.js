@@ -15,9 +15,27 @@ Ext.define('Ext.ux.DateTimePicker', {
         'Ext.form.Label'
     ],
     
+    // <locale>
+    /**
+     * @cfg {String} todayText
+     * The default text that will be displayed in the calendar to pick the curent date.
+     */
     todayText: 'Current Date',
+    // </locale>
+    // <locale>
+    /**
+     * @cfg {String} hourText
+     * The default text displayed above the hour slider
+     */
     hourText: 'Hour',
+    // </locale>
+    // <locale>
+    /**
+     * @cfg {String} minuteText
+     * The default text displayed above the minute slider
+     */
     minuteText : 'Minutes',
+    // </locale>
 
     initEvents: function() {
         var me = this,
@@ -66,7 +84,7 @@ Ext.define('Ext.ux.DateTimePicker', {
 
         dtAux.setSeconds(0);
         
-        me.timeFormat = ~me.format.indexOf("h") ? 'h' : 'H';
+        me.timeFormat = me.format.indexOf("h") !== -1 ? 'h' : 'H';
         me.hourSlider = new Ext.slider.Single({
             fieldLabel: me.hourText,
             labelAlign: 'top',

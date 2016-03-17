@@ -1,7 +1,8 @@
 DateTimeField
 =============
 
-A DateTime Form Field UX for Sencha, ExtJS 5.x and ExtJS 6.x
+A DateTime Form Field UX for Sencha ExtJS 4.2.x.
+For ExtJS 5 and 6, please access [here](https://github.com/gportela85/DateTimeField)
 
 This widget displays a Time Picker panel by the Date Picker panel.
 
@@ -36,16 +37,4 @@ ScreenShots - Neptune Theme
 [![neptune12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Neptune_12.png)]()
 
 [![neptune24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Neptune_24.png)]()
-
-ScreenShots - Crisp Theme (ExtJS 5)
-
-[![neptune12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Crisp_12.png)]()
-
-[![neptune24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Crisp_24.png)]()
-
-ScreenShots - Triton Theme (ExtJS 6)
-
-[![triton12](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Triton_12.png)]()
-
-[![triton24](https://raw.githubusercontent.com/gportela85/DateTimeField/master/resources/images/dateTimePicker_Triton_24.png)]()
 
