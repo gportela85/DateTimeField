@@ -1,22 +1,20 @@
 DateTimeField
 =============
 
-A DateTime Form Field UX for Sencha ExtJS 4.2.x.
+A DateTime Form Field UX for Sencha ExtJS 4.2.x.<br/>
 For ExtJS 5 and 6, please access [here](https://github.com/gportela85/DateTimeField)
 
-This widget displays a Time Picker panel by the Date Picker panel.
-
+This widget displays a Time Picker panel by the Date Picker panel. <br/>
 There is a DateTimeField.aux file already encapsulated and ready for use with Sencha Architect 3.x.
 
 ---
 
 Usage: 
 
-You only need to change the format value for the Time Picker to work. Having a format with "H" makes it 24/hour and "h" makes it 12/hour format.
-
+You only need to change the format value for the Time Picker to work. Having a format with "H" makes it 24/hour and "h" makes it 12/hour format.<br/>
 Eg: 'm/d/Y H:i:s' or 'm/d/Y h:i A'
 
-Fiddle: https://fiddle.sencha.com/#fiddle/rn3
+Fiddle: https://fiddle.sencha.com/#fiddle/17cd
 
 ---
 
