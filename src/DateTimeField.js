@@ -17,7 +17,6 @@ Ext.define('Ext.ux.DateTimeField', {
      */
     format: "m/d/Y H:i",
     //</locale>
-    //<locale>
     /**
      * @cfg {String} altFormats
      * Multiple date formats separated by "|" to try when parsing a user input value and it does not match the defined
@@ -25,29 +24,6 @@ Ext.define('Ext.ux.DateTimeField', {
      */
     altFormats: "m/d/Y H:i:s|c",
     width: 270,
-
-    mimicBlur: function(e) {
-        var me = this,
-            picker = me.picker;
-
-        // ignore mousedown events within the picker element
-        if (!picker || !e.within(picker.el, false, true) && !e.within(picker.timePicker.el, false, true)) {
-            me.callParent(arguments);
-        }
-    },
-
-    triggerBlur: function() {
-        return false;
-    },
-
-    collapseIf: function(e) {
-        var me = this,
-            picker = me.picker;
-
-        if (picker.timePicker && !e.within(picker.timePicker.el, false, true)) {
-            me.callParent([e]);
-        }
-    },
 
     createPicker: function() {
         var me = this,
@@ -127,4 +103,5 @@ Ext.define('Ext.ux.DateTimeField', {
         
         return result;
     }
+
 });
