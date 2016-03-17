@@ -1,7 +1,7 @@
 DateTimeField
 =============
 
-A DateTime Form Field UX for Sencha ExtJS 4.2.x, ExtJS 5.x and ExtJS 6.x
+A DateTime Form Field UX for Sencha, ExtJS 5.x and ExtJS 6.x
 
 This widget displays a Time Picker panel by the Date Picker panel.
 
@@ -16,12 +16,6 @@ You only need to change the format value for the Time Picker to work. Having a f
 Eg: 'm/d/Y H:i:s' or 'm/d/Y h:i A'
 
 Fiddle: https://fiddle.sencha.com/#fiddle/rn3
-
----
-
-Known Bugs: 
-
-- Min Value and Max Value does not prevent incorrect time selection
 
 ---
 
