@@ -134,14 +134,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             }
         });
         
-        me.callParent();
-        me.setValue(new Date(dtAux));
-    },
-
-    afterRender: function() {
-        var me = this;
-
-        me.timePicker = Ext.create('Ext.panel.Panel', {
+        me.timePicker = new Ext.panel.Panel({
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -171,6 +164,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         });
 
         me.callParent();
+        me.setValue(new Date(dtAux));
     },
 
     handleTabClick: function (e) {
@@ -202,7 +196,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             label = me.timePicker.down('label'),
             minutePrefix = me.minuteSlider.getValue() < 10 ? '0' : '',
             hourDisplay = me.hourSlider.getValue(),
-            pickerValue, hourValue, minuteValue, hourPrefix, timeSufix, auxValue;
+            pickerValue, hourPrefix, timeSufix, auxValue;
 
         if (me.timeFormat == 'h') {
             timeSufix = me.hourSlider.getValue() < 12 ? ' AM' : ' PM';
@@ -215,40 +209,41 @@ Ext.define('Ext.ux.DateTimePicker', {
         label.setText(hourPrefix + hourDisplay + ':' + minutePrefix + me.minuteSlider.getValue() + (timeSufix || ''));
 
         if (me.pickerField && (pickerValue = me.pickerField.getValue())) {
-            hourValue = me.hourSlider.getValue();
-            minuteValue = me.minuteSlider.getValue();
-            auxValue = new Date(pickerValue.setHours(hourValue, minuteValue));
-
+            auxValue = new Date(pickerValue[slider == me.hourSlider ? 'setHours' : 'setMinutes'](slider.getValue()));
             me.pickerField.setValue(auxValue);
         }
     },
 
-    onShow: function() {
-        var me = this;
-        me.showTimePicker();
-        me.callParent();
+    afterShow: function(animateTarget, callback, scope) {
+        var me = this,
+            timePickerToolbarEl, backgroundColor;
+
+        me.callParent([animateTarget, callback, scope]);
+        me.timePicker.show();
+
+        // this is a workaround for the classic theme, where the time 
+        // panel would have a transparent background with the classic theme.
+        timePickerToolbarEl = me.timePicker.down('toolbar').getEl();
+        backgroundColor = timePickerToolbarEl.getStyle('background-color');
+        if (backgroundColor == 'transparent') {
+            timePickerToolbarEl.setStyle('background-color', timePickerToolbarEl.getStyle('border-color'));
+        }
     },
 
-    showTimePicker: function() {
+    afterSetPosition: function(x, y) {
+        this.callParent([x, y]);
+        this.alignTimePicker();
+    },
+
+    alignTimePicker: function() {
         var me = this,
-            el = me.el;
+            el = me.el,
+            alignTo = me.getTimePickerSide(),
+            xPos = alignTo == 'tl' ? -135 : 5;
 
-        Ext.defer(function() {
-            var body = Ext.getBody(),
-                bodyWidth = body.getViewSize().width,
-                alignTo = (bodyWidth < (el.getX() + el.getWidth() + 140)) ? 'tl' : 'tr',
-                xPos = alignTo == 'tl' ? -135 : 5,
-                backgroundColor, toolbar;
+        me.timePicker.setHeight(el.getHeight());
+        me.timePicker.showBy(me, alignTo, [xPos, 0]);
 
-            me.timePicker.setHeight(el.getHeight());
-            me.timePicker.showBy(me, alignTo, [xPos, 0]);
-
-            toolbar = me.timePicker.down('toolbar').getEl();
-            backgroundColor = toolbar.getStyle('background-color');
-            if (backgroundColor == 'transparent') {
-                toolbar.setStyle('background-color', toolbar.getStyle('border-color'));
-            }
-        }, 1);
     },
 
     onHide: function() {
@@ -268,6 +263,14 @@ Ext.define('Ext.ux.DateTimePicker', {
             );
         }
         me.callParent();
+    },
+
+    getTimePickerSide: function() {
+        var el = this.el,
+            body = Ext.getBody(),
+            bodyWidth = body.getViewSize().width;
+
+        return (bodyWidth < (el.getX() + el.getWidth() + 140)) ? 'tl' : 'tr';
     },
 
     setValue: function(value) {
@@ -319,32 +322,28 @@ Ext.define('Ext.ux.DateTimePicker', {
 
     selectedUpdate: function(date) {
         var me = this,
-            dateOnly = Ext.Date.clearTime(date, true),
-            currentDate = (me.pickerField && me.pickerField.getValue()) || new Date();
+            dateOnly = Ext.Date.clearTime(date, true);
 
         this.callParent([dateOnly]);
-
-        if (currentDate) {
-            Ext.defer(function() {
-                me.hourSlider.setValue(currentDate.getHours());
-                me.minuteSlider.setValue(currentDate.getMinutes());
-            }, 10);
-
-        }
+        me.updateSliders();
+        
     },
 
     fullUpdate: function(date) {
         var me = this,
-            dateOnly = Ext.Date.clearTime(date, true),
-            currentDate = (me.pickerField && me.pickerField.getValue()) || new Date();
+            dateOnly = Ext.Date.clearTime(date, true);
 
         this.callParent([dateOnly]);
+        me.updateSliders();
+    },
 
-        if (currentDate) {
-            Ext.defer(function() {
-                me.hourSlider.setValue(currentDate.getHours());
-                me.minuteSlider.setValue(currentDate.getMinutes());
-            }, 10);
+    updateSliders: function() {
+        var me = this,
+            currentDate = (me.pickerField && me.pickerField.getValue()) || new Date();
+
+        if (me.timePicker.rendered) {
+            me.hourSlider.setValue(currentDate.getHours());
+            me.minuteSlider.setValue(currentDate.getMinutes());
         }
     }
 });

@@ -102,6 +102,17 @@ Ext.define('Ext.ux.DateTimeField', {
         }
         
         return result;
-    }
+    },
 
+    onExpand: function() {
+        var me = this,
+            timePicker;
+
+        me.callParent();
+        timePicker = me.picker && me.picker.timePicker;
+
+        if (timePicker) {
+            me.picker.alignTimePicker();
+        }
+    },
 });
