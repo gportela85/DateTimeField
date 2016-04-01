@@ -118,7 +118,7 @@ Ext.define('Ext.ux.DateTimeField', {
             timePicker;
 
         me.callParent();
-        timePicker = me.picker && me.picker.timePicker;
+        timePicker = me.picker;
 
         if (timePicker) {
             me.picker.alignTimePicker();
