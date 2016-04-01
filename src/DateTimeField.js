@@ -25,6 +25,15 @@ Ext.define('Ext.ux.DateTimeField', {
     altFormats: "m/d/Y H:i:s|c",
     width: 270,
 
+    collapseIf: function(e) {
+        var me = this,
+            picker = me.picker;
+
+        if (picker.timePicker && !e.within(picker.timePicker.el, false, true)) {
+            me.callParent([e]);
+        }
+    },
+
     createPicker: function() {
         var me = this,
             parentPicker = this.callParent(),
