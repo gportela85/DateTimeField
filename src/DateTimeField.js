@@ -37,11 +37,14 @@ Ext.define('Ext.ux.DateTimeField', {
     createPicker: function() {
         var me = this,
             parentPicker = this.callParent(),
-            config = Ext.merge(me.initialConfig, parentPicker.initialConfig);
-
-            if (config.renderTo) {
-                delete config.renderTo;
+            config = Ext.merge(me.initialConfig, parentPicker.initialConfig),
+            excludes = ['renderTo', 'width', 'height'];
+        
+        for (var i=0; i < excludes.length; i++) {
+            if (config.hasOwnProperty([excludes[i]])) {
+                delete config[excludes[i]];
             }
+        }
         
         return Ext.create('Ext.ux.DateTimePicker', config);
     },
@@ -123,5 +126,5 @@ Ext.define('Ext.ux.DateTimeField', {
         if (timePicker) {
             me.picker.alignTimePicker();
         }
-    },
+    }
 });
