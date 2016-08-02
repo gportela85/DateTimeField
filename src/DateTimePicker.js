@@ -160,7 +160,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             items: [me.hourSlider, me.minuteSlider],
             onMouseDown: function(e) {
                 e.preventDefault();
-            },
+            }
         });
 
         me.callParent();
@@ -211,6 +211,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         if (me.pickerField && (pickerValue = me.pickerField.getValue())) {
             auxValue = new Date(pickerValue[slider == me.hourSlider ? 'setHours' : 'setMinutes'](slider.getValue()));
             me.pickerField.setValue(auxValue);
+            me.pickerField.fireEvent('select', me.pickerField, auxValue);
         }
     },
 
