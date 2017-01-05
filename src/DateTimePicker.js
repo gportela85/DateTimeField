@@ -164,6 +164,10 @@ Ext.define('Ext.ux.DateTimePicker', {
         });
 
         me.callParent();
+        me.ownerCt = me.up('[floating]');
+        me.timePicker.ownerCt = me.ownerCt;
+        me.registerWithOwnerCt();
+        me.timePicker.registerWithOwnerCt();
         me.setValue(new Date(dtAux));
     },
 
