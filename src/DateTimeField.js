@@ -39,7 +39,7 @@ Ext.define('Ext.ux.DateTimeField', {
             parentPicker = this.callParent(),
             parentConfig = Ext.clone(parentPicker.initialConfig),
             initialConfig = Ext.clone(me.initialConfig),
-            excludes = ['renderTo', 'width', 'height'];
+            excludes = ['renderTo', 'width', 'height', 'bind'];
 
         // Avoiding duplicate ids error
         parentPicker.destroy();
