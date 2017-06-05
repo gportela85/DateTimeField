@@ -110,10 +110,6 @@ Ext.define('Ext.ux.DateTimePicker', {
                 } else {
                     return (value && value - 12 <= 0) ? value : Math.abs(value - 12);
                 }
-            },
-            listeners: {
-                change: me.changeTimeValue,
-                scope: me
             }
         });
 
@@ -127,11 +123,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             increment: 1,
             minValue: 0,
             maxValue: 59,
-            vertical: true,
-            listeners: {
-                change: me.changeTimeValue,
-                scope: me
-            }
+            vertical: true
         });
         
         me.timePicker = new Ext.panel.Panel({
@@ -169,6 +161,8 @@ Ext.define('Ext.ux.DateTimePicker', {
         me.registerWithOwnerCt();
         me.timePicker.registerWithOwnerCt();
         me.setValue(new Date(dtAux));
+        me.hourSlider.addListener('change', me.changeTimeValue, me);
+        me.minuteSlider.addListener('change', me.changeTimeValue, me);
     },
 
     handleTabClick: function (e) {
