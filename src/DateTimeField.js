@@ -71,7 +71,7 @@ Ext.define('Ext.ux.DateTimeField', {
             time;
 
         if (value === null || value.length < 1) { // if it's blank and textfield didn't flag it then it's valid
-             return errors;
+            return errors;
         }
 
         svalue = value;

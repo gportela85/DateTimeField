@@ -189,7 +189,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         return null;
     },
 
-    changeTimeValue: function(slider, e, eOpts) {
+    changeTimeValue: function(slider) {
         var me = this,
             label = me.timePicker.down('label'),
             minutePrefix = me.minuteSlider.getValue() < 10 ? '0' : '',
