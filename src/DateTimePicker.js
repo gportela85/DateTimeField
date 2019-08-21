@@ -4,7 +4,7 @@
  * This file requires use of the Ext JS library, under independent license.
  * This is part of the UX for DateTimeField developed by Guilherme Portela
  */
- 
+
 Ext.define('Ext.ux.DateTimePicker', {
     extend: 'Ext.picker.Date',
     alias: 'widget.datetimepicker',
@@ -35,6 +35,24 @@ Ext.define('Ext.ux.DateTimePicker', {
      */
     minuteText : 'Minutes',
     // </locale>
+
+    /**
+     * @cfg {Object} hourSliderConfig
+     * A config object that will be applied to the hour slider. Any of the config options available for
+     * {@link Ext.slider.Single} can be specified here.
+     */
+
+    /**
+     * @cfg {Object} minuteSliderConfig
+     * A config object that will be applied to the minute slider. Any of the config options available for
+     * {@link Ext.slider.Single} can be specified here.
+     */
+
+    /**
+     * @cfg {Object} timePickerConfig
+     * A config object that will be applied to the time picker. Any of the config options available for
+     * {@link Ext.panel.Panel} can be specified here.
+     */
 
     initEvents: function() {
         var me = this,
@@ -90,9 +108,9 @@ Ext.define('Ext.ux.DateTimePicker', {
         dtAux = me.value;
 
         dtAux.setSeconds(0);
-        
+
         me.timeFormat = me.format.indexOf("h") !== -1 ? 'h' : 'H';
-        me.hourSlider = new Ext.slider.Single({
+        me.hourSlider = new Ext.slider.Single(Ext.Object.merge({
             fieldLabel: me.hourText,
             labelAlign: 'top',
             labelSeparator: ' ',
@@ -111,9 +129,9 @@ Ext.define('Ext.ux.DateTimePicker', {
                     return (value && value - 12 <= 0) ? value : Math.abs(value - 12);
                 }
             }
-        });
+        }, me.hourSliderConfig));
 
-        me.minuteSlider = new Ext.slider.Single({
+        me.minuteSlider = new Ext.slider.Single(Ext.Object.merge({
             fieldLabel: me.minuteText,
             labelAlign: 'top',
             labelSeparator: ' ',
@@ -124,9 +142,9 @@ Ext.define('Ext.ux.DateTimePicker', {
             minValue: 0,
             maxValue: 59,
             vertical: true
-        });
-        
-        me.timePicker = new Ext.panel.Panel({
+        }, me.minuteSliderConfig));
+
+        me.timePicker = new Ext.panel.Panel(Ext.Object.merge({
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -153,7 +171,7 @@ Ext.define('Ext.ux.DateTimePicker', {
             onMouseDown: function(e) {
                 e.preventDefault();
             }
-        });
+        }, me.timePickerConfig));
 
         me.callParent();
         me.ownerCt = me.up('[floating]');
@@ -220,7 +238,7 @@ Ext.define('Ext.ux.DateTimePicker', {
         me.callParent([animateTarget, callback, scope]);
         me.timePicker.show();
 
-        // this is a workaround for the classic theme, where the time 
+        // this is a workaround for the classic theme, where the time
         // panel would have a transparent background with the classic theme.
         timePickerToolbarEl = me.timePicker.down('toolbar').getEl();
         backgroundColor = timePickerToolbarEl.getStyle('background-color');
@@ -238,11 +256,10 @@ Ext.define('Ext.ux.DateTimePicker', {
         var me = this,
             el = me.el,
             alignTo = me.getTimePickerSide(),
-            xPos = alignTo == 'tl' ? -135 : 5;
+            xPos = alignTo == 'tl' ? (-1 * me.timePicker.getWidth() - 5) : 5;
 
         me.timePicker.setHeight(el.getHeight());
         me.timePicker.showBy(me, alignTo, [xPos, 0]);
-
     },
 
     onHide: function() {
@@ -327,7 +344,7 @@ Ext.define('Ext.ux.DateTimePicker', {
 
         this.callParent([dateOnly]);
         me.updateSliders();
-        
+
     },
 
     fullUpdate: function(date) {
